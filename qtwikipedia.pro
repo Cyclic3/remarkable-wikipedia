@@ -1,6 +1,7 @@
 QT += gui
 QT += quick
 QT += dbus
+
 CONFIG += c++11
 
 # The following define makes your compiler emit warnings if you use
@@ -26,7 +27,7 @@ QML_IMPORT_PATH =
 QML_DESIGNER_IMPORT_PATH =
 
 linux-oe-g++ {
-    LIBS += -lqsgepaper
+    LIBS += $$PWD/libqsgepaper.a
 }
 
 # Default rules for deployment.

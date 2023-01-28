@@ -9,8 +9,8 @@ Window {
     height: 1872;
 
     property bool localZimMode: true;
-    property string edition: "fb92b95d083f0cb6a2a17794cf164156"; //"wikipedia_en_simple_all_nopic_2019-05";
-    property string homePage: "";
+    property string edition: "wikipedia_en_all_maxi_2022-05";//"fb92b95d083f0cb6a2a17794cf164156"; //"wikipedia_en_simple_all_nopic_2019-05";
+    property string homePage: "User:The_other_Kiwix_guy/Landing";
     readonly property int dummy: onLoad();
     property var backStack: [];
 
@@ -34,7 +34,7 @@ Window {
 
         var doc = new XMLHttpRequest();
         doc.onreadystatechange = function() {
-            if (doc.readyState == XMLHttpRequest.DONE) {
+            if (doc.readyState === XMLHttpRequest.DONE) {
                 var a = doc.responseText;
                 var reg = '<a href="\/([^\/]*)\/A\/([^\/"]*)">Found<\/a>';
                 var m = a.match(reg);
@@ -82,6 +82,12 @@ Window {
         log.y = 100;
         const regex = /<a /g;
         text = text.replace(regex, "<a style='color: black' ");
+        const img_regex = /<img src="([^"]+)"/g;
+        var result;
+        while((result = img_regex.exec(text))) {
+            console.log(result[1])
+        }
+        text = text.replace(img_regex, '<img src="http://127.0.0.1:8081/wikipedia_en_all_maxi_2022-05/A/$1"')
         log.text = text;
     }
 
@@ -203,6 +209,7 @@ Window {
         }
 
         if (localZimMode) {
+          // http://localhost:8081/suggest?content=wikipedia_en_all_maxi_2022-05&term=f
           doc.open("GET", "http://127.0.0.1:8081/" + edition + "/A/" + query.text);
         } else {
           doc.open("GET", "https://en.wikipedia.org/w/api.php?action=query&format=json&generator=prefixsearch&prop=description&redirects=&gpsnamespace=0&gpslimit=6&gpssearch=" + encodeURIComponent(query.text));
