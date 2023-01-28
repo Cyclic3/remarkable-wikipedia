@@ -1,5 +1,11 @@
 # remarkable-wikipedia
 
+## Tweaks
+
+* Requires you to copy `libqwebp.so` to `/usr/lib/plugins/imageformats/`
+* Now uses `kiwix-serve` on port `8081`
+
+
 ## Update - this app now works with wikipedia via the network or a locally hosted zim file. First tries to find a zimsever on localhost:8081 and if its not running, falls back to the web. Also updated for reMarkable 2 with a better keyboard and swipe gestures.
 
 <img src="screenshots/demo.gif"/>
